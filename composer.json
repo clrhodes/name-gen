@@ -1,17 +1,17 @@
 {
-	"name": "eklundchristopher/name-gen",
-	"keywords": ["name", "generator", "fantasy"],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Christopher Eklund",
-			"email": "eklundchristopher@gmail.com"
-		}
-	],
-	"autoload": {
-		"psr-4": {
-			"Eklundchristopher\\NameGen\\": "src/"
-		}
-	},
-	"minimum-stability": "dev"
+    "name": "eklundchristopher/name-gen",
+    "keywords": ["name", "generator", "fantasy"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christopher Eklund",
+            "email": "eklundchristopher@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Eklundchristopher\\NameGen\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
 }
