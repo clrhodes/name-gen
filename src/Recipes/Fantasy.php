@@ -88,7 +88,16 @@ class Fantasy implements Recipe
      *
      * @var string
      */
-    protected $template = '(|(<B>|s|h|ty|ph|r))(i|ae|ya|ae|eu|ia|i|eo|ai|a)(lo|la|sri|da|dai|the|sty|lae|due|li|lly|ri|na|ral|sur|rith)(|(su|nu|sti|llo|ria|))(|(n|ra|p|m|lis|cal|deu|dil|suir|phos|ru|dru|rin|raap|rgue))';
+    protected $templates = [
+        '(|(<B>|s|h|ty|ph|r))(i|ae|ya|ae|eu|ia|i|eo|ai|a)(lo|la|sri|da|dai|the|sty|lae|due|li|lly|ri|na|ral|sur|rith)(|(su|nu|sti|llo|ria|))(|(n|ra|p|m|lis|cal|deu|dil|suir|phos|ru|dru|rin|raap|rgue))',
+        '(cham|chan|jisk|lis|frich|isk|lass|mind|sond|sund|ass|chad|lirt|und|mar|lis|il|<BVC>)(jask|ast|ista|adar|irra|im|ossa|assa|osia|ilsa|<vCv>)(|(an|ya|la|sta|sda|sya|st|nya))',
+        '(ch|sh|cal|val|ell|har|shar|shal|rel|laen|ral|alr|ch|av)(|(is|al|ow|ish|ul|el|ar|iel))(aren|aeish|aith|even|adur|ulash|alith|atar|aia|erin|aera|ael|ira|iel|ahur|ishul)',
+        '(ethr|qil|mal|er|eal|far|fil|fir|ing|ind|il|lam|quel|quar|quan|qar|pal|mal|yar|um|ard|enn|ey)(|(<vc>|on|us|un|ar|as|en|ir|ur|at|ol|al|an))(uard|wen|arn|on|il|ie|on|iel|rion|rian|an|ista|rion|rian|cil|mol|yon)',
+        '(taith|kach|chak|kank|kjar|rak|kan|kaj|tach|rskal|kjol|jok|jor|jad|kot|kon|knir|kror|kol|tul|rhaok|rhak|krol|jan|kag|ryr)(<vc>|in|or|an|ar|och|un|mar|yk|ja|arn|ir|ros|ror)(|(mund|ard|arn|karr|chim|kos|rir|arl|kni|var|an|in|ir|a|i|as))',
+        '(aj|ch|etz|etzl|tz|kal|gahn|kab|aj|izl|ts|jaj|lan|kach|chaj|qaq|jol|ix|az|biq|nam)(|(<vc>|aw|al|yes|il|ay|en|tom||oj|im|ol|aj|an|as))(aj|am|al|aqa|ende|elja|ich|ak|ix|in|ak|al|il|ek|ij|os|al|im)',
+        '(yi|shu|a|be|na|chi|cha|cho|ksa|yi|shu)(th|dd|jj|sh|rr|mk|n|rk|y|jj|th)(us|ash|eni|akra|nai|ral|ect|are|el|urru|aja|al|uz|ict|arja|ichi|ural|iru|aki|esh)',
+        '(syth|sith|srr|sen|yth|ssen|then|fen|ssth|kel|syn|est|bess|inth|nen|tin|cor|sv|iss|ith|sen|slar|ssil|sthen|svis|s|ss|s|ss)(|(tys|eus|yn|of|es|en|ath|elth|al|ell|ka|ith|yrrl|is|isl|yr|ast|iy))(us|yn|en|ens|ra|rg|le|en|ith|ast|zon|in|yn|ys)',
+    ];
 
     /**
      * Build the recipe.
@@ -149,13 +158,28 @@ class Fantasy implements Recipe
 
         $character = $characters[array_rand($characters)];
 
-        if (preg_match('/<(.+)>/', $character, $matches)) {
-            $symbols = $this->symbols[$matches[1]];
-
-            $character = $symbols[array_rand($symbols)];
+        if (preg_match('/<(['.preg_quote(implode(null, array_keys($this->symbols)), '/').']+)>/', $character, $matches)) {
+            $character = $this->parseLiterals($matches[1]);
         }
 
         return $character;
+    }
+
+    /**
+     * Parse a literal string.
+     *
+     * @param  string  $literals
+     * @return string
+     */
+    protected function parseLiterals($literals)
+    {
+        list($string, $literals) = [[], str_split($literals)];
+
+        foreach ($literals as $literal) {
+            $string[] = $this->symbols[$literal][array_rand($this->symbols[$literal])];
+        }
+
+        return implode(null, $string);
     }
 
     /**
@@ -165,7 +189,7 @@ class Fantasy implements Recipe
      */
     protected function generate()
     {
-        list($name, $groups) = [null, $this->findGroups($this->template)];
+        list($name, $groups) = [null, $this->findGroups($this->getTemplate())];
 
         foreach ($groups as $group) {
             $alternatives = $this->findAlternatives($group);
@@ -180,5 +204,15 @@ class Fantasy implements Recipe
         }
 
         return $name;
+    }
+
+    /**
+     * Get a random template.
+     *
+     * @return string
+     */
+    protected function getTemplate()
+    {
+        return $this->templates[array_rand($this->templates)];
     }
 }
