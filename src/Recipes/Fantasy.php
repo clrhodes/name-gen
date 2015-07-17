@@ -7,95 +7,178 @@ use Eklundchristopher\NameGen\Contracts\Recipe;
 class Fantasy implements Recipe
 {
     /**
-     * Holds all the available characters.
+     * Holds all the available symbols.
+     *
+     * Based off of http://rinkworks.com/namegen/
      *
      * @var array
      */
-    protected $characters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'y', 'z'];
+    protected $symbols = [
+        's' => [
+            'ach', 'ack', 'ad', 'age', 'ald', 'ale', 'an', 'ang', 'ar', 'ard',
+            'as', 'ash', 'at', 'ath', 'augh', 'aw', 'ban', 'bel', 'bur', 'cer',
+            'cha', 'che', 'dan', 'dar', 'del', 'den', 'dra', 'dyn', 'ech', 'eld',
+            'elm', 'em', 'en', 'end', 'eng', 'enth', 'er', 'ess', 'est', 'et',
+            'gar', 'gha', 'hat', 'hin', 'hon', 'ia', 'ight', 'ild', 'im', 'ina',
+            'ine', 'ing', 'ir', 'is', 'iss', 'it', 'kal', 'kel', 'kim', 'kin',
+            'ler', 'lor', 'lye', 'mor', 'mos', 'nal', 'ny', 'nys', 'old', 'om',
+            'on', 'or', 'orm', 'os', 'ough', 'per', 'pol', 'qua', 'que', 'rad',
+            'rak', 'ran', 'ray', 'ril', 'ris', 'rod', 'roth', 'ryn', 'sam', 'say',
+            'ser', 'shy', 'skel', 'sul', 'tai', 'tan', 'tas', 'ther', 'tia', 'tin',
+            'ton', 'tor', 'tur', 'um', 'und', 'unt', 'urn', 'usk', 'ust', 'ver',
+            'ves', 'vor', 'war', 'wor', 'yer',
+        ],
+        'v' => [
+            'a', 'e', 'i', 'o', 'u', 'y',
+        ],
+        'V' => [
+            'a', 'e', 'i', 'o', 'u', 'y', 'ae', 'ai', 'au', 'ay', 'ea', 'ee', 'ei',
+            'eu', 'ey', 'ia', 'ie', 'oe', 'oi', 'oo', 'ou', 'ui',
+        ],
+        'c' => [
+            'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r',
+            's', 't', 'v', 'w', 'x', 'y', 'z',
+        ],
+        'B' => [
+            'b', 'bl', 'br', 'c', 'ch', 'chr', 'cl', 'cr', 'd', 'dr', 'f', 'g', 'h',
+            'j', 'k', 'l', 'll', 'm', 'n', 'p', 'ph', 'qu', 'r', 'rh', 's', 'sch',
+            'sh', 'sl', 'sm', 'sn', 'st', 'str', 'sw', 't', 'th', 'thr', 'tr', 'v',
+            'w', 'wh', 'y', 'z', 'zh',
+        ],
+        'C' => [
+            'b', 'c', 'ch', 'ck', 'd', 'f', 'g', 'gh', 'h', 'k', 'l', 'ld', 'll', 'lt',
+            'm', 'n', 'nd', 'nn', 'nt', 'p', 'ph', 'q', 'r', 'rd', 'rr', 'rt', 's',
+            'sh', 'ss', 'st', 't', 'th', 'v', 'w', 'y', 'z',
+        ],
+        'i' => [
+            'air', 'ankle', 'ball', 'beef', 'bone', 'bum', 'bumble', 'bump', 'cheese',
+            'clod', 'clot', 'clown', 'corn', 'dip', 'dolt', 'doof', 'dork', 'dumb',
+            'face', 'finger', 'foot', 'fumble', 'goof', 'grumble', 'head', 'knock',
+            'knocker', 'knuckle', 'loaf', 'lump', 'lunk', 'meat', 'muck', 'munch',
+            'nit', 'numb', 'pin', 'puff', 'skull', 'snark', 'sneeze', 'thimble', 'twerp',
+            'twit', 'wad', 'wimp', 'wipe',
+        ],
+        'm' => [
+            'baby', 'booble', 'bunker', 'cuddle', 'cuddly', 'cutie', 'doodle', 'foofie',
+            'gooble', 'honey', 'kissie', 'lover', 'lovey', 'moofie', 'mooglie', 'moopie',
+            'moopsie', 'nookum', 'poochie', 'poof', 'poofie', 'pookie', 'schmoopie',
+            'schnoogle', 'schnookie', 'schnookum', 'smooch', 'smoochie', 'smoosh',
+            'snoogle', 'snoogy', 'snookie', 'snookum', 'snuggy', 'sweetie', 'woogle',
+            'woogy', 'wookie', 'wookum', 'wuddle', 'wuddly', 'wuggy', 'wunny',
+        ],
+        'M' => [
+            'boo', 'bunch', 'bunny', 'cake', 'cakes', 'cute', 'darling', 'dumpling',
+            'dumplings', 'face', 'foof', 'goo', 'head', 'kin', 'kins', 'lips', 'love',
+            'mush', 'pie', 'poo', 'pooh', 'pook', 'pums',
+        ],
+        'D' => [
+            'b', 'bl', 'br', 'cl', 'd', 'f', 'fl', 'fr', 'g', 'gh', 'gl', 'gr', 'h',
+            'j', 'k', 'kl', 'm', 'n', 'p', 'th', 'w',
+        ],
+        'd' => [
+            'elch', 'idiot', 'ob', 'og', 'ok', 'olph', 'olt', 'omph', 'ong', 'onk',
+            'oo', 'oob', 'oof', 'oog', 'ook', 'ooz', 'org', 'ork', 'orm', 'oron', 'ub',
+            'uck', 'ug', 'ulf', 'ult', 'um', 'umb', 'ump', 'umph', 'un', 'unb', 'ung',
+            'unk', 'unph', 'unt', 'uzz',
+        ],
+    ];
 
     /**
-     * Holds all the vowels.
-     *
-     * @var array
-     */
-    protected $vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
-
-    /**
-     * Holds the previously used character.
+     * Holds the template.
      *
      * @var string
      */
-    protected $previous;
+    protected $template = '(|(<B>|s|h|ty|ph|r))(i|ae|ya|ae|eu|ia|i|eo|ai|a)(lo|la|sri|da|dai|the|sty|lae|due|li|lly|ri|na|ral|sur|rith)(|(su|nu|sti|llo|ria|))(|(n|ra|p|m|lis|cal|deu|dil|suir|phos|ru|dru|rin|raap|rgue))';
 
     /**
      * Build the recipe.
      *
-     * @param  integer  $words  null
+     * @param  integer  $words  1
      * @return string
      */
-    public function build($words = null)
+    public function build($words = 1)
     {
-        list($output, $words) = [null, (int) $words];
+        $name = [];
 
         for ($i = 0; $i < $words; $i++) {
-            $output .= $this->word() . ' ';
+            $name[] = $this->generate();
         }
-
-        return ucwords(trim($output));
+        
+        return ucfirst(implode(' ', $name));
     }
 
     /**
-     * Generate a word.
+     * Find all available groups.
      *
-     * @param  integer  $length  null
-     * @return string
+     * @param  string  $base
+     * @return array
      */
-    private function word($length = null)
+    protected function findGroups($base)
     {
-        list($string, $length) = [null, $length ?: rand(4, 9)];
+        preg_match_all('/\(([^()]|(?R))*\)/i', $base, $groups);
 
-        for ($i = 0; $i < $length; $i++) {
-            $character = $this->character();
-
-            $string .= $character;
-        }
-
-        return $string;
+        return $groups[0];
     }
 
     /**
-     * Get a character.
+     * Find all the alternatives within a group.
      *
-     * @param  array  $from  []
+     * @param  string  $group
+     * @return array
+     */
+    protected function findAlternatives($group)
+    {
+        preg_match_all('/([a-z<>|]+)/i', $group, $alternatives);
+
+        array_walk($alternatives[0], function (&$item) {
+            $item = trim($item, '|');
+        });
+
+        return $alternatives[0];
+    }
+
+    /**
+     * Selects a character from an alternative group.
+     *
+     * @param  string  $alternative
      * @return string
      */
-    private function character(array $from = [])
+    protected function selectCharacter($alternative)
     {
-        $from = $from ?: $this->characters;
+        $characters = explode('|', $alternative);
 
-        $character = $from[array_rand($from)];
+        $character = $characters[array_rand($characters)];
 
-        if ($this->percentage(80) and strtolower($this->previous) === strtolower($character)) {
-            return $this->character();
+        if (preg_match('/<(.+)>/', $character, $matches)) {
+            $symbols = $this->symbols[$matches[1]];
+
+            $character = $symbols[array_rand($symbols)];
         }
 
-        if ($this->percentage(10) and ! in_array($character, $this->vowels)) {
-            return $this->character($this->vowels);
-        }
-        
-        $this->previous = $character;
-        
         return $character;
     }
 
     /**
-     * Match only a certain percentage and higher.
+     * Generates a name.
      *
-     * @param  integer  $percent
-     * @return boolean
+     * @return string
      */
-    private function percentage($percent)
+    protected function generate()
     {
-        return rand(0, 100) <= $percent;
+        list($name, $groups) = [null, $this->findGroups($this->template)];
+
+        foreach ($groups as $group) {
+            $alternatives = $this->findAlternatives($group);
+
+            $alternative = $alternatives[array_rand($alternatives)];
+
+            if (empty($alternative)) {
+                continue;
+            }
+
+            $name .= $this->selectCharacter($alternative);
+        }
+
+        return $name;
     }
 }
