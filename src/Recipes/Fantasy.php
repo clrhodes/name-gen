@@ -117,6 +117,35 @@ class Fantasy implements Recipe
     }
 
     /**
+     * Clear any templates.
+     *
+     * @return $this
+     */
+    public function clearTemplates()
+    {
+        $this->templates = [];
+
+        return $this;
+    }
+
+    /**
+     * Add one or more templates.
+     *
+     * @param  mixed  $templates
+     * @return $this
+     */
+    public function addTemplate($templates)
+    {
+        $templates = is_array($templates) ? $templates : [$templates];
+
+        foreach ($templates as $template) {
+            $this->templates[] = $template;
+        }
+
+        return $this;
+    }
+
+    /**
      * Find all available groups.
      *
      * @param  string  $base
