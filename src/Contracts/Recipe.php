@@ -1,6 +1,6 @@
 <?php
 
-namespace Eklundchristopher\NameGen\Contracts;
+namespace Clrhodes\NameGen\Contracts;
 
 interface Recipe
 {

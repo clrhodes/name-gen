@@ -1,22 +1,22 @@
 <?php
 
-namespace Eklundchristopher\NameGen;
+namespace Clrhodees\NameGen;
 
-use Eklundchristopher\NameGen\Contracts\Recipe;
+use Clrhodes\NameGen\Contracts\Recipe;
 
 class Generator
 {
     /**
      * Holds the recipe implementation.
      *
-     * @var \Eklundchristopher\NameGen\Recipe
+     * @var \Clrhodes\NameGen\Recipe
      */
     protected $recipe;
 
     /**
      * Create a new class object.
      *
-     * @param  \Eklundchristopher\NameGen\Recipe  $recipe
+     * @param  \Clrhodes\NameGen\Recipe  $recipe
      */
     public function __construct(Recipe $recipe)
     {
