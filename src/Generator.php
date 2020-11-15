@@ -1,6 +1,6 @@
 <?php
 
-namespace Clrhodees\NameGen;
+namespace Clrhodes\NameGen;
 
 use Clrhodes\NameGen\Contracts\Recipe;
 
