@@ -1,8 +1,8 @@
 <?php
 
-namespace Eklundchristopher\NameGen\Recipes;
+namespace Clrhodes\NameGen\Recipes;
 
-use Eklundchristopher\NameGen\Contracts\Recipe;
+use Clrhodes\NameGen\Contracts\Recipe;
 
 class Fantasy implements Recipe
 {
