@@ -6,11 +6,15 @@
         {
             "name": "Christopher Eklund",
             "email": "eklundchristopher@gmail.com"
+        },
+        {
+            "name": "Christopher Rhodes",
+            "email": "clrhodes@gmail.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Eklundchristopher\\NameGen\\": "src/"
+            "Clrhodes\\NameGen\\": "src/"
         }
     },
     "minimum-stability": "dev"
